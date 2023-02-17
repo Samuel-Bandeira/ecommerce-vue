@@ -3,7 +3,6 @@ import App from "./App.vue";
 import Home from "./pages/Home.vue";
 import PrimeVue from "primevue/config";
 import * as VueRouter from "vue-router";
-
 import "primevue/resources/primevue.min.css";
 import "primevue/resources/themes/saga-blue/theme.css";
 import "primeicons/primeicons.css";
