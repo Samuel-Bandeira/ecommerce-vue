@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import Home from "./pages/Home.vue";
+import ProductPage from "./pages/ProductPage.vue";
 import PrimeVue from "primevue/config";
 import * as VueRouter from "vue-router";
 import axios from "axios";
@@ -14,6 +15,10 @@ const routes = [
     path: "/",
     name: "home",
     component: <Home />,
+  },
+  {
+    path: "/product/:id",
+    component: <ProductPage />,
   },
 ];
 

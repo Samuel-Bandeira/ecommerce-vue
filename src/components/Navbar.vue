@@ -25,11 +25,13 @@
         <i class="pi pi-search" />
       </div>
     </div>
-    <div>
-      <p>Olá, faça seu login</p>
+    <div class="login-container">
+      <p>Olá, bem vindo</p>
+      <p>faça seu login</p>
     </div>
-    <div>
-      <p>Pedidos</p>
+    <div class="orders-container">
+      <p>Devoluções</p>
+      <p>e Pedidos</p>
     </div>
     <div class="shopping-cart">
       <i class="pi pi-shopping-cart" style="font-size: 2em" />
@@ -81,10 +83,6 @@ export default {
         {
           label: "Mais vendidos",
           url: "/top-selled",
-        },
-        {
-          label: "Eletrônicos",
-          url: "/tech",
         },
       ],
     };

@@ -1,8 +1,8 @@
 <template>
-  <div class="grid">
-    <template v-for="(item, index) in items" :key="index">
+  <div class="grid" style="width: 70%">
+    <template v-for="book in books" :key="book.id">
       <div class="xl:col-3 lg:col-4 md:col-6">
-        <BookCard :item="item" />
+        <BookCard :book="book" />
       </div>
     </template>
   </div>
@@ -15,12 +15,8 @@ export default {
     BookCard,
   },
   props: {
-    items: Array,
+    books: Array,
   },
-  methods: {
-    log() {
-      console.log(this.items);
-    },
-  },
+  methods: {},
 };
 </script>

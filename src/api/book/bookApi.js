@@ -1,48 +1,31 @@
-export const getBooksCategories = () => {
-  return [
-    { name: "Romance" },
-    { name: "Drama" },
-    { name: "Horror" },
-    { name: "Fantasy" },
-  ];
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "http://localhost:1337/api",
+});
+
+export const getBooks = async () => {
+  const response = await api.get("/books", {
+    params: {
+      populate: ["cover", "authors", "categories"],
+    },
+  });
+  const { data } = response.data;
+  return data;
 };
 
-export const getBooks = () => {
-  return [
-    {
-      id: 1,
-      title: "IT",
-      author: "Lorem Ypsum",
-      cover: "https://m.media-amazon.com/images/I/51z0s3GcvwL.jpg",
-      price: 34.9,
+export const getBook = async ({ id }) => {
+  const response = await api.get(`/books/${id}`, {
+    params: {
+      populate: ["cover", "authors.image", "categories"],
     },
-    {
-      id: 2,
-      title: "IT",
-      author: "Lorem Ypsum",
-      cover: "https://m.media-amazon.com/images/I/51z0s3GcvwL.jpg",
-      price: 34.9,
-    },
-    {
-      id: 3,
-      title: "IT",
-      author: "Lorem Ypsum",
-      cover: "https://m.media-amazon.com/images/I/51z0s3GcvwL.jpg",
-      price: 34.9,
-    },
-    {
-      id: 4,
-      title: "IT",
-      author: "Lorem Ypsum",
-      cover: "https://m.media-amazon.com/images/I/51z0s3GcvwL.jpg",
-      price: 34.9,
-    },
-    {
-      id: 5,
-      title: "IT",
-      author: "Lorem Ypsum",
-      cover: "https://m.media-amazon.com/images/I/51z0s3GcvwL.jpg",
-      price: 34.9,
-    },
-  ];
+  });
+  const { data } = response.data;
+  return data;
+};
+
+export const getBooksCategories = async () => {
+  const response = await api.get("/categories", {});
+  const { data } = response.data;
+  return data;
 };

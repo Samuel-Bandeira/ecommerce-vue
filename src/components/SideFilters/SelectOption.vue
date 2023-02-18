@@ -1,7 +1,11 @@
 <template>
   <div class="select-option">
-    <Checkbox name="item" value="item" v-model="selectedCategories" />
-    <p>{{ item.name }}</p>
+    <Checkbox
+      :name="option.name"
+      :value="option.name"
+      v-model="selectedCategories"
+    />
+    <p>{{ option.name }}</p>
   </div>
 </template>
 <script>
@@ -12,13 +16,7 @@ export default {
   components: {
     Checkbox,
   },
-  props: {
-    item: {
-      id: Number,
-      name: String,
-      value: [String, Number],
-    },
-  },
+  props: ["option"],
   data() {
     return {
       selectedCategories: [],

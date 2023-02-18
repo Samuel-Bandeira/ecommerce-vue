@@ -1,18 +1,19 @@
 <template>
   <div class="home-container">
-    <SideFilters />
-    <BooksContainer :items="items" />
+    <SideFilters :categories="categories" />
+    <BooksContainer :books="books" />
   </div>
 </template>
 <script lang="js">
 import BooksContainer from '@/components/BooksContainer.vue';
-import SideFilters from '@/components/SideFilters/SideFilters.vue'
-import { getBooks } from '../api/book/bookApi'
+import SideFilters from '@/components/SideFilters/index.vue'
+import { getBooks, getBooksCategories } from '../api/book/bookApi'
+
 export default {
   name: "home-page",
   async created() {
-    const response = getBooks();
-    this.items = response
+    this.books = await getBooks()
+    this.categories = await getBooksCategories()
   },
   components: {
     BooksContainer,
@@ -20,7 +21,8 @@ export default {
   },
   data() {
     return {
-      items:[]
+      books:[],
+      categories:[]
     };
   },
 };
