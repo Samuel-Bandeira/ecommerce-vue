@@ -1,5 +1,4 @@
 <template>
-  {{ counter() }}
   <Card @click="goToPage()">
     <template #header>
       <img :src="item.cover" alt="book-cover" class="px-6 pt-5 bg-gray-100" />
@@ -26,9 +25,6 @@ export default {
   methods: {
     goToPage() {
       this.$router.push(`/product/${this.item.id}`);
-    },
-    counter() {
-      return this.$store.state.counter;
     },
   },
   components: {

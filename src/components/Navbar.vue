@@ -1,35 +1,72 @@
 <template>
-  <Menubar :model="mainItems" class="main-menu">
-    <template #start>
-      <img
-        alt="logo"
-        src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
-        height="40"
-        class="mr-2"
-        @click="goHome()"
+  <div class="navbar-container">
+    <img
+      src="../assets/amazon_logo_white.svg.png"
+      alt="amazon_logo"
+      class="amazon-logo"
+      @click="goHome()"
+    />
+    <div class="address-container">
+      <div class="pi pi-map-marker"></div>
+      <div class="address-container-text">
+        <p>Olá</p>
+        <p>Selecione o endereço</p>
+      </div>
+    </div>
+    <div class="search-bar">
+      <Dropdown
+        :options="categories"
+        optionLabel="name"
+        placeholder="Category"
+        v-model="selectedCategory"
       />
-    </template>
-  </Menubar>
+      <AutoComplete optionLabel="name" class="w-full" />
+      <div class="search-bar-icon">
+        <i class="pi pi-search" />
+      </div>
+    </div>
+    <div>
+      <p>Olá, faça seu login</p>
+    </div>
+    <div>
+      <p>Pedidos</p>
+    </div>
+    <div class="shopping-cart">
+      <i class="pi pi-shopping-cart" style="font-size: 2em" />
+      <p>Carrinho</p>
+      <!-- <Badge value="2"></Badge> -->
+    </div>
+  </div>
   <Menubar :model="subItems" class="sub-menu"></Menubar>
 </template>
+
 <script>
+import AutoComplete from "primevue/autocomplete";
 import Menubar from "primevue/menubar";
+import Dropdown from "primevue/dropdown";
+import { getBooksCategories } from "../api/book/bookApi";
+// import Badge from "primevue/badge";
+
 export default {
   name: "navbar-component",
   components: {
     Menubar,
+    AutoComplete,
+    Dropdown,
+    // Badge,
   },
-  methods: {
-    goHome() {
-      this.$router.push({ path: "/" });
-    },
+  created() {
+    const response = getBooksCategories();
+    this.categories = response;
   },
   data() {
     return {
+      selectedCategory: "",
+      categories: [],
       mainItems: [
         {
           label: "Login",
-          url: "/",
+          url: "/login",
         },
         {
           label: "Pedido e Devoluções",
@@ -52,20 +89,12 @@ export default {
       ],
     };
   },
+  methods: {
+    goHome() {
+      this.$router.push({ path: "/" });
+    },
+    login() {},
+  },
 };
 </script>
-<style>
-* {
-  margin: 0 !important;
-}
-.main-menu.p-menubar {
-  padding: 10px 20px !important;
-}
-.sub-menu.p-menubar {
-  padding: 0px !important;
-  border: none !important;
-}
-.p-menubar-start {
-  flex: 1;
-}
-</style>
+<style src="../scss/navbar/index.scss" lang="scss" />

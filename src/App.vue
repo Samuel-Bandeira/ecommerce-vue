@@ -1,6 +1,7 @@
 <template>
-  <Navbar></Navbar>
-  <router-view></router-view>
+  <Navbar />
+  <router-view />
+  <div class="app-container"></div>
 </template>
 
 <script>
@@ -13,4 +14,4 @@ export default {
 };
 </script>
 
-<style src="./scss/app.scss" lang="scss" scoped></style>
+<style src="./scss/app.scss" lang="scss"></style>

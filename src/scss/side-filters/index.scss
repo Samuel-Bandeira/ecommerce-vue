@@ -1,0 +1,19 @@
+.side-filters-container {
+  width: 30%;
+  .side-filter-category-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.25em;
+  }
+  .select-option {
+    display: flex;
+    margin-bottom: 0.2em;
+    p {
+      margin-left: 0.25em;
+    }
+  }
+}
+
+p {
+  margin: 0;
+}
