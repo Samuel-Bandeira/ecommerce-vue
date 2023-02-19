@@ -14,7 +14,7 @@ export const getImageSrcFromEntity = (entity) => {
 };
 
 export const formatFullName = (entity) => {
-  return `${entity.attributes.name} ${entity.attributes.name}`;
+  return `${entity.attributes.name} ${entity.attributes.last_name}`;
 };
 
 export const getSubNavbarItems = () => {
@@ -22,6 +22,31 @@ export const getSubNavbarItems = () => {
     {
       label: "Mais vendidos",
       url: "/top-selled",
+    },
+  ];
+};
+
+export const getQuantityPossibilities = () => {
+  return [
+    {
+      name: "1",
+      value: 1,
+    },
+    {
+      name: "2",
+      value: 2,
+    },
+    {
+      name: "3",
+      value: 3,
+    },
+    {
+      name: "4",
+      value: 4,
+    },
+    {
+      name: "5",
+      value: 5,
     },
   ];
 };

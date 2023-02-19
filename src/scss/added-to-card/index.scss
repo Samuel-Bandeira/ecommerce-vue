@@ -1,0 +1,23 @@
+.added-to-cart-container {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  .added-to-cart-product {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 50px;
+      margin-right: 1em;
+    }
+
+    .added-to-cart-product-text {
+      display: flex;
+      i {
+        margin-right: 0.3em;
+      }
+    }
+  }
+}

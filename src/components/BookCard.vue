@@ -7,7 +7,7 @@
         class="book-cover"
       />
     </template>
-    <template #title> {{ book.title }} </template>
+    <template #title> {{ book.attributes.title }} </template>
     <template #content>
       <div>
         <div v-for="author in authors" :key="author.id">
@@ -53,4 +53,4 @@ export default {
 };
 </script>
 
-<style src="../scss/book-card/index.scss" lang="scss"></style>
+<style src="../scss/book-card/index.scss" lang="scss" scoped></style>

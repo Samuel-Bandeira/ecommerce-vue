@@ -26,6 +26,7 @@ export default {
       categories:null
     };
   },
+  methods: {}
 };
 </script>
 <style lang="scss" src="../scss/home/index.scss" />

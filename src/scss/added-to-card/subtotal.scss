@@ -1,0 +1,19 @@
+.subtotal-container {
+  width: 20%;
+  padding: 1em;
+
+  .subtotal-value-cart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .subtotal-actions {
+    display: flex;
+    flex-direction: column;
+
+    .p-button {
+      margin-bottom: 0.5em;
+    }
+  }
+}

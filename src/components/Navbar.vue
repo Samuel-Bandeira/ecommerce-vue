@@ -4,7 +4,7 @@
       src="../assets/amazon_logo_white.svg.png"
       alt="amazon_logo"
       class="amazon-logo"
-      @click="goHome()"
+      @click="redirectToHome()"
     />
     <div class="address-container">
       <div class="pi pi-map-marker"></div>
@@ -33,7 +33,7 @@
       <p>Devoluções</p>
       <p>e Pedidos</p>
     </div>
-    <div class="shopping-cart">
+    <div class="shopping-cart" @click="redirectToCart()">
       <i class="pi pi-shopping-cart" style="font-size: 2em" />
       <p>Carrinho</p>
     </div>
@@ -66,8 +66,11 @@ export default {
     };
   },
   methods: {
-    goHome() {
+    redirectToHome() {
       this.$router.push({ path: "/" });
+    },
+    redirectToCart() {
+      this.$router.push({ path: "/cart" });
     },
   },
 };
