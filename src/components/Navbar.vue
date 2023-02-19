@@ -36,10 +36,9 @@
     <div class="shopping-cart">
       <i class="pi pi-shopping-cart" style="font-size: 2em" />
       <p>Carrinho</p>
-      <!-- <Badge value="2"></Badge> -->
     </div>
   </div>
-  <Menubar :model="subItems" class="sub-menu"></Menubar>
+  <Menubar :model="subNavbarItems" class="sub-menu" />
 </template>
 
 <script>
@@ -47,51 +46,29 @@ import AutoComplete from "primevue/autocomplete";
 import Menubar from "primevue/menubar";
 import Dropdown from "primevue/dropdown";
 import { getBooksCategories } from "../api/book/bookApi";
-// import Badge from "primevue/badge";
-
+import { getSubNavbarItems } from "../utils/index";
 export default {
   name: "navbar-component",
   components: {
     Menubar,
     AutoComplete,
     Dropdown,
-    // Badge,
   },
-  created() {
-    const response = getBooksCategories();
-    this.categories = response;
+  async created() {
+    this.categories = await getBooksCategories();
+    this.subNavbarItems = getSubNavbarItems();
   },
   data() {
     return {
-      selectedCategory: "",
-      categories: [],
-      mainItems: [
-        {
-          label: "Login",
-          url: "/login",
-        },
-        {
-          label: "Pedido e Devoluções",
-          url: "/about-me",
-        },
-        {
-          label: "Carrinho",
-          url: "/projects",
-        },
-      ],
-      subItems: [
-        {
-          label: "Mais vendidos",
-          url: "/top-selled",
-        },
-      ],
+      selectedCategory: null,
+      categories: null,
+      subNavbarItems: [],
     };
   },
   methods: {
     goHome() {
       this.$router.push({ path: "/" });
     },
-    login() {},
   },
 };
 </script>

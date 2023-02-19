@@ -1,13 +1,14 @@
 <template>
-  <div class="home-container">
+  <div class="home-container" v-if="books && categories">
     <SideFilters :categories="categories" />
     <BooksContainer :books="books" />
   </div>
 </template>
 <script lang="js">
+
+import { getBooks, getBooksCategories } from '../api/book/bookApi'
 import BooksContainer from '@/components/BooksContainer.vue';
 import SideFilters from '@/components/SideFilters/index.vue'
-import { getBooks, getBooksCategories } from '../api/book/bookApi'
 
 export default {
   name: "home-page",
@@ -21,8 +22,8 @@ export default {
   },
   data() {
     return {
-      books:[],
-      categories:[]
+      books:null,
+      categories:null
     };
   },
 };

@@ -1,12 +1,13 @@
 <template>
   <div v-if="book" class="product-page-container">
     <div class="product-main">
-      <img :src="getCoverSrc()" alt="book_cover" />
+      <img :src="getCoverSrcFromBook(book)" alt="book_cover" />
       <div>
         <p>Author</p>
-        <div v-for="author in book.attributes.authors.data" :key="author.id">
-          <img :src="getAuthorImageSrc(author)" alt="author" />
-          <p>{{ author.attributes.name }} {{ author.attributes.last_name }}</p>
+        <div v-for="author in authors" :key="author.id">
+          <p>hello</p>
+          <img :src="getImageSrcFromEntity(author)" alt="author" />
+          <p>{{ formatFullName(author) }}</p>
           <button>Seguir</button>
         </div>
       </div>
@@ -18,25 +19,27 @@
   </div>
 </template>
 <script>
+import {
+  getCoverSrcFromBook,
+  getImageSrcFromEntity,
+  formatFullName,
+} from "@/utils";
 import { getBook } from "../api/book/bookApi";
+
 export default {
   name: "product-page",
   async created() {
     this.book = await getBook({ id: this.$route.params.id });
   },
+  computed: {
+    authors() {
+      return this.book.attributes.authors.data;
+    },
+  },
   methods: {
-    getCoverSrc() {
-      return (
-        process.env.VUE_APP_API_BASE_URL +
-        this.book.attributes.cover.data.attributes.formats.thumbnail.url
-      );
-    },
-    getAuthorImageSrc(author) {
-      return (
-        process.env.VUE_APP_API_BASE_URL +
-        author.attributes.image.data.attributes.formats.thumbnail.url
-      );
-    },
+    getImageSrcFromEntity,
+    getCoverSrcFromBook,
+    formatFullName,
   },
   data() {
     return {

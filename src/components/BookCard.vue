@@ -1,49 +1,48 @@
 <template>
   <Card @click="goToPage()">
     <template #header>
-      <img :src="coverSrc" alt="book-cover" class="px-6 pt-5 bg-gray-100" />
+      <img
+        :src="getCoverSrcFromBook(this.book)"
+        alt="book-cover"
+        class="book-cover"
+      />
     </template>
     <template #title> {{ book.title }} </template>
     <template #content>
       <div>
-        <div v-for="author in authorsInfo" :key="author.id">
+        <div v-for="author in authors" :key="author.id">
           <p>
-            {{ author.attributes.name + " " + author.attributes.last_name }}
+            {{ formatFullName(author) }}
           </p>
         </div>
       </div>
       <div v-for="category in categories" :key="category.id">
-        <p>{{ category.name }}</p>
+        <p>{{ category.attributes.name }}</p>
       </div>
       <h2>R$ {{ price }}</h2>
     </template>
   </Card>
 </template>
+
 <script>
 import Card from "primevue/card";
+import { getCoverSrcFromBook, formatFullName } from "@/utils";
 export default {
   props: ["book"],
   computed: {
-    coverSrc() {
-      const thumbnail =
-        this.book.attributes.cover.data.attributes.formats.thumbnail.url;
-      const value = process.env.VUE_APP_API_BASE_URL + thumbnail;
-      return value;
-    },
-    authorsInfo() {
-      const authors = this.book.attributes.authors.data;
-      return authors;
+    authors() {
+      return this.book.attributes.authors.data;
     },
     categories() {
-      const categories = this.book.attributes.categories.data;
-      console.log(categories);
-      return categories[0];
+      return this.book.attributes.categories.data;
     },
     price() {
       return this.book.attributes.price;
     },
   },
   methods: {
+    getCoverSrcFromBook,
+    formatFullName,
     goToPage() {
       this.$router.push(`/product/${this.book.id}`);
     },
@@ -53,4 +52,5 @@ export default {
   },
 };
 </script>
-<style></style>
+
+<style src="../scss/book-card/index.scss" lang="scss"></style>
