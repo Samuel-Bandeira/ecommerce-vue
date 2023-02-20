@@ -7,3 +7,5 @@
 ![book_page_new](https://user-images.githubusercontent.com/60707892/220097751-6aea8ad1-3d48-48ff-b5d4-97132995a634.png)
 #
 ![product_added_new](https://user-images.githubusercontent.com/60707892/220100074-661e2756-0316-4128-a9a1-da55c0e7e604.png)
+#
+![cart](https://user-images.githubusercontent.com/60707892/220100379-d9fa5005-86f7-40ac-8f33-6772e1f8564e.png)
