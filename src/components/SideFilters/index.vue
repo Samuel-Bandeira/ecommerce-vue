@@ -2,19 +2,38 @@
   <div class="side-filters-container">
     <div class="side-filter-category-title">Tipos</div>
     <template v-for="category in categories" :key="category.id">
-      <SelectOption :option="category.attributes" />
+      <Checkbox
+        :inputId="String(category.id)"
+        name="category"
+        :value="category.attributes.name"
+        v-model="selectedCategories"
+        @change="getFilteredBooks(category.attributes)"
+      />
+      <p>{{ category.attributes.name }}</p>
     </template>
   </div>
 </template>
 <script>
-import SelectOption from "./SelectOption.vue";
+import Checkbox from "primevue/checkbox";
+import { getBooksByCategories } from "@/api/book/bookApi";
 export default {
   name: "side-filters",
   props: {
     categories: Array,
   },
   components: {
-    SelectOption,
+    Checkbox,
+  },
+  data() {
+    return {
+      selectedCategories: [],
+    };
+  },
+  methods: {
+    getFilteredBooks() {
+      const data = getBooksByCategories(this.selectedCategories);
+      console.log(data);
+    },
   },
 };
 </script>

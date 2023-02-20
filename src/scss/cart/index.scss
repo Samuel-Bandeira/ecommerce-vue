@@ -1,0 +1,28 @@
+.cart-container {
+  display: flex;
+  padding: 1em;
+  align-items: flex-start;
+  width: 70%;
+  margin: 0 auto;
+  .p-card {
+    width: 70%;
+    margin-right: 1em;
+  }
+  .cart-product {
+    display: flex;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    p:first-child {
+      font-weight: bold;
+    }
+    .cart-item-image {
+      width: 65px;
+      margin-right: 1.5em;
+    }
+  }
+
+  .total-price {
+    display: flex;
+    justify-content: space-between;
+  }
+}

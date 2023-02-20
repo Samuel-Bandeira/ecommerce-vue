@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import qs from "qs";
 const api = axios.create({
   baseURL: "http://localhost:1337/api",
 });
@@ -10,6 +10,25 @@ export const getBooks = async () => {
       populate: ["cover", "authors", "categories"],
     },
   });
+  const { data } = response.data;
+  return data;
+};
+
+export const getBooksByCategories = async (categories) => {
+  const query = qs.stringify({
+    populate: "categories,authors",
+    filters: {
+      categories: {
+        name: {
+          $in: categories,
+        },
+      },
+    },
+  });
+
+  console.log(query, categories);
+
+  const response = await api.get(`/books?${query}`);
   const { data } = response.data;
   return data;
 };

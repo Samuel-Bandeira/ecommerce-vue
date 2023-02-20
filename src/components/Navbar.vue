@@ -36,6 +36,7 @@
     <div class="shopping-cart" @click="redirectToCart()">
       <i class="pi pi-shopping-cart" style="font-size: 2em" />
       <p>Carrinho</p>
+      <Badge :value="totalItemsQuantity" />
     </div>
   </div>
   <Menubar :model="subNavbarItems" class="sub-menu" />
@@ -43,8 +44,9 @@
 
 <script>
 import AutoComplete from "primevue/autocomplete";
-import Menubar from "primevue/menubar";
 import Dropdown from "primevue/dropdown";
+import Menubar from "primevue/menubar";
+import Badge from "primevue/badge";
 import { getBooksCategories } from "../api/book/bookApi";
 import { getSubNavbarItems } from "../utils/index";
 export default {
@@ -53,10 +55,16 @@ export default {
     Menubar,
     AutoComplete,
     Dropdown,
+    Badge,
   },
   async created() {
     this.categories = await getBooksCategories();
     this.subNavbarItems = getSubNavbarItems();
+  },
+  computed: {
+    totalItemsQuantity() {
+      return this.$store.getters.itemsQuantity;
+    },
   },
   data() {
     return {

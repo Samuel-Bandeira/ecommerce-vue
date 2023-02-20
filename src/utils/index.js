@@ -5,6 +5,10 @@ export const getCoverSrcFromBook = (book) => {
   );
 };
 
+export const getAuthorsFromBook = (book) => {
+  return book.attributes.authors.data;
+};
+
 export const getImageSrcFromEntity = (entity) => {
   console.log("in func", entity);
   return (

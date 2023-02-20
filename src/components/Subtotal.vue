@@ -6,7 +6,7 @@
     </div>
     <div class="subtotal-actions">
       <Button label="Fechar pedido(1 produto)" />
-      <Button label="Ir para o carrinho" />
+      <Button label="Ir para o carrinho" @click="redirectToCart()" />
     </div>
   </div>
 </template>
@@ -17,6 +17,11 @@ export default {
   name: "sub-total",
   components: {
     Button,
+  },
+  methods: {
+    redirectToCart() {
+      this.$router.push("/cart");
+    },
   },
 };
 </script>
