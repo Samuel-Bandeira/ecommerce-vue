@@ -9,7 +9,7 @@
 </template>
 <script lang="js">
 
-import { getBooks, getBooksCategories } from '../api/book/bookApi'
+import { getBooks, getBooksCategories } from '../api/bookApi'
 import DisplayedBook from '@/components/DisplayedProducts/DisplayedBooks.vue';
 import SideFilters from '@/components/SideFilters.vue'
 
@@ -17,7 +17,7 @@ export default {
   name: "home-page",
   computed: {
     products() {
-      return this.$store.state.homeProducts
+      return this.$store.state.productStore.homeProducts
     }
   },
   watch: {
@@ -28,11 +28,10 @@ export default {
   async created() {
     this.categories = await getBooksCategories()
     const fetchedProducts = await getBooks();
-
-    this.$store.commit('setProducts', {
+    this.$store.commit('productStore/setProducts', {
       fetchedProducts
     })
-    this.books = this.$store.state.homeProducts
+    this.books = this.$store.state.productStore.homeProducts
   },
   components: {
     DisplayedBook,

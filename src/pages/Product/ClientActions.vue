@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$store.commit("increment", {
+      this.$store.commit("cartStore/increment", {
         book: this.book,
         quantity: Number(this.selectedQuantity.value),
       });

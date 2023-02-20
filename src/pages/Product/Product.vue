@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import { getBook } from "../../api/book/bookApi";
+import { getBook } from "../../api/bookApi";
 import BookMain from "./BookMain.vue";
 import BookInfo from "./BookInfo.vue";
 import ClientActions from "./ClientActions.vue";

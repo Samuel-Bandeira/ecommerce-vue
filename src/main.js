@@ -14,7 +14,7 @@ import AddedToCart from "./pages/AddedToCart/AddedToCart.vue";
 import Home from "./pages/Home.vue";
 import Cart from "./pages/Cart/Cart.vue";
 import App from "./App.vue";
-
+import Login from "./pages/Login.vue";
 const routes = [
   {
     path: "/",
@@ -33,6 +33,10 @@ const routes = [
     path: "/cart/added",
     component: <AddedToCart />,
   },
+  {
+    path: "/login",
+    component: <Login />,
+  },
 ];
 
 const router = VueRouter.createRouter({
@@ -40,9 +44,10 @@ const router = VueRouter.createRouter({
   routes,
 });
 
-const app = createApp(App);
+export const app = createApp(App);
 app.use(router).use(PrimeVue).use(store);
+
 app.config.globalProperties.$http = axios.create({
-  baseURL: "https://api.coindesk.com/v1/bpi/",
+  baseURL: "http://localhost:1337/",
 });
 app.mount("#app");

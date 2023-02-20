@@ -17,7 +17,7 @@
 </template>
 <script>
 import Subtotal from "@/pages/AddedToCart/Subtotal.vue";
-import { getBook } from "@/api/book/bookApi";
+import { getBook } from "@/api/bookApi";
 import { getCoverSrcFromBook } from "@/utils";
 
 export default {

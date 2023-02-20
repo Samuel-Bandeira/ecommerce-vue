@@ -1,10 +1,6 @@
-import axios from "axios";
 import qs from "qs";
+import { api } from "./api";
 import { populateFields } from "@/utils";
-
-const api = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE_URL,
-});
 
 export const getBooks = async () => {
   const fieldsToPopulate = "cover,authors,categories";
@@ -26,6 +22,7 @@ export const getBooksByCategories = async (categories) => {
     },
   });
   const response = await api.get(`/books?${query}`);
+  console.log("resp", response);
   const { data } = response.data;
   return data;
 };

@@ -2,7 +2,7 @@
   <div class="subtotal-container">
     <div class="subtotal-value-cart">
       <p>Subtotal do carrinho:</p>
-      <h2>R$ 43.90</h2>
+      <h2>R$ {{ totalCartValue }}</h2>
     </div>
     <div class="subtotal-actions">
       <Button label="Fechar pedido(1 produto)" />
@@ -15,6 +15,11 @@ import Button from "primevue/button";
 
 export default {
   name: "sub-total",
+  computed: {
+    totalCartValue() {
+      return this.$store.getters["cartStore/totalCartPrice"];
+    },
+  },
   components: {
     Button,
   },

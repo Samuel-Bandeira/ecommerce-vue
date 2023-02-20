@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     totalCart() {
-      return this.$store.getters.totalCartPrice;
+      return this.$store.getters["cartStore/totalCartPrice"];
     },
   },
 };

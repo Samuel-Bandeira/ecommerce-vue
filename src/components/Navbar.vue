@@ -25,7 +25,11 @@
         <i class="pi pi-search" />
       </div>
     </div>
-    <div class="login-container">
+    <div v-if="user" class="login-container">
+      <p>Bem vindo</p>
+      <p>{{ user.username }}</p>
+    </div>
+    <div v-else class="login-container" @click="redirectToLogin()">
       <p>Olá, bem vindo</p>
       <p>faça seu login</p>
     </div>
@@ -47,7 +51,7 @@ import AutoComplete from "primevue/autocomplete";
 import Dropdown from "primevue/dropdown";
 import Menubar from "primevue/menubar";
 import Badge from "primevue/badge";
-import { getBooksCategories } from "../api/book/bookApi";
+import { getBooksCategories } from "../api/bookApi";
 import { getSubNavbarItems } from "../utils/index";
 export default {
   name: "navbar-component",
@@ -63,7 +67,10 @@ export default {
   },
   computed: {
     totalItemsQuantity() {
-      return this.$store.getters.itemsQuantity;
+      return this.$store.getters["cartStore/itemsQuantity"];
+    },
+    user() {
+      return this.$store.state.authStore.user;
     },
   },
   data() {
@@ -79,6 +86,9 @@ export default {
     },
     redirectToCart() {
       this.$router.push({ path: "/cart" });
+    },
+    redirectToLogin() {
+      this.$router.push({ path: "/login" });
     },
   },
 };

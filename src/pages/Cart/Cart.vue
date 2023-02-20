@@ -62,7 +62,7 @@ export default {
   computed: {
     items() {
       console.log("items", this.$store.state.cartItems);
-      return this.$store.state.cartItems;
+      return this.$store.state.cartStore.cartItems;
     },
   },
   methods: {
@@ -71,7 +71,7 @@ export default {
     formatFullName,
     changeProductQuantity(event, idToUpdate) {
       const newQuantity = Number(event.target.value);
-      this.$store.commit("changeQuantity", {
+      this.$store.commit("cartStore/changeQuantity", {
         idToUpdate,
         newQuantity,
       });

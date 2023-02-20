@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import { getBooksByCategories } from "@/api/book/bookApi";
+import { getBooksByCategories } from "@/api/bookApi";
 import Checkbox from "primevue/checkbox";
 
 export default {
@@ -39,7 +39,7 @@ export default {
       const filteredProducts = await getBooksByCategories(
         this.selectedCategories
       );
-      this.$store.commit("changeFilteredBooks", {
+      this.$store.commit("productStore/changeFilteredBooks", {
         filteredProducts,
       });
     },
