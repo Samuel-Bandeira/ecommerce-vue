@@ -81,3 +81,12 @@ $sub-nav-color: #131921;
     color: white !important;
   }
 }
+
+.slot-autocomplete {
+  display: flex;
+  align-items: center;
+  img {
+    width: 30px;
+    margin-right: 0.5em;
+  }
+}

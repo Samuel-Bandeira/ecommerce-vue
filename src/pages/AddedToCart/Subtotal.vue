@@ -5,7 +5,7 @@
       <h2>R$ {{ totalCartValue }}</h2>
     </div>
     <div class="subtotal-actions">
-      <Button label="Fechar pedido(1 produto)" />
+      <Button :label="`Fechar pedido(${totalCartProductCount} items)`" />
       <Button label="Ir para o carrinho" @click="redirectToCart()" />
     </div>
   </div>
@@ -18,6 +18,9 @@ export default {
   computed: {
     totalCartValue() {
       return this.$store.getters["cartStore/totalCartPrice"];
+    },
+    totalCartProductCount() {
+      return this.$store.getters["cartStore/itemsQuantity"];
     },
   },
   components: {

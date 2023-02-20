@@ -16,11 +16,28 @@
     <div class="search-bar">
       <Dropdown
         :options="categories"
-        optionLabel="name"
+        optionLabel="attributes.name"
         placeholder="Category"
         v-model="selectedCategory"
       />
-      <AutoComplete optionLabel="name" class="w-full" />
+      <AutoComplete
+        optionLabel="attributes.title"
+        class="w-full"
+        v-model="selectedBook"
+        :suggestions="filteredBooks"
+        @complete="searchBook($event)"
+      >
+        <template #item="slotProps">
+          <div
+            class="slot-autocomplete"
+            @click="search(slotProps.item)"
+            @keyup.enter="search(slotProps.item)"
+          >
+            <img :src="getCoverSrcFromBook(slotProps.item)" alt="book_cover" />
+            <div>{{ slotProps.item.attributes.title }}</div>
+          </div>
+        </template>
+      </AutoComplete>
       <div class="search-bar-icon">
         <i class="pi pi-search" />
       </div>
@@ -51,8 +68,12 @@ import AutoComplete from "primevue/autocomplete";
 import Dropdown from "primevue/dropdown";
 import Menubar from "primevue/menubar";
 import Badge from "primevue/badge";
-import { getBooksCategories } from "../api/bookApi";
-import { getSubNavbarItems } from "../utils/index";
+import {
+  getBooks,
+  getBooksByCategories,
+  getBooksCategories,
+} from "../api/bookApi";
+import { getSubNavbarItems, getCoverSrcFromBook } from "../utils/index";
 export default {
   name: "navbar-component",
   components: {
@@ -62,8 +83,15 @@ export default {
     Badge,
   },
   async created() {
+    this.books = await getBooks();
     this.categories = await getBooksCategories();
+    console.log("cate", this.categories);
     this.subNavbarItems = getSubNavbarItems();
+  },
+  watch: {
+    selectedCategory(newValue) {
+      this.changeCategory({ category: newValue });
+    },
   },
   computed: {
     totalItemsQuantity() {
@@ -75,12 +103,40 @@ export default {
   },
   data() {
     return {
+      books: [],
+      selectedBook: null,
+      filteredBooks: null,
       selectedCategory: null,
       categories: null,
       subNavbarItems: [],
     };
   },
   methods: {
+    getCoverSrcFromBook,
+    search(book) {
+      this.redirectToBookPage({ bookId: book.id });
+    },
+    searchBook(event) {
+      setTimeout(() => {
+        if (!event.query.trim().length) {
+          this.filteredBooks = [...this.books];
+        } else {
+          this.filteredBooks = this.books.filter((book) => {
+            return book.attributes.title
+              .toLowerCase()
+              .startsWith(event.query.toLowerCase());
+          });
+        }
+      }, 250);
+    },
+    async changeCategory({ category }) {
+      const books = await getBooksByCategories([category.attributes.name]);
+
+      console.log(books);
+      this.$store.commit("productStore/changeFilteredBooks", {
+        filteredProducts: books,
+      });
+    },
     redirectToHome() {
       this.$router.push({ path: "/" });
     },
@@ -89,6 +145,10 @@ export default {
     },
     redirectToLogin() {
       this.$router.push({ path: "/login" });
+    },
+    redirectToBookPage({ bookId }) {
+      console.log("hello");
+      this.$router.push({ path: `/product/${bookId}` });
     },
   },
 };
