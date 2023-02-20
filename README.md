@@ -1,13 +1,13 @@
 # Ecommerce-Vue
 
 # Introduction
-## Hello! It's a working in progress at its earlier stages.
+Hello! It's a working in progress at its earlier stages.
 
 # What's this project
-## It consists in a Amazon E-commerce clone, but so far our focus is only on books although, in the future, we look for expanding to different niches of products.
+It consists in a Amazon E-commerce clone, but so far our focus is only on books although, in the future, we look for expanding to different niches of products.
 
 # Project Images
-# You can take a look at some images below and thanks for the visit!
+You can take a look at some images below and thanks for the visit!
 
 ![home](https://user-images.githubusercontent.com/60707892/219969665-bf58c0ef-9398-4276-83f2-57e34d931787.png)
 # 
