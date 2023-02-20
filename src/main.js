@@ -9,10 +9,10 @@ import { createApp } from "vue";
 import * as VueRouter from "vue-router";
 import axios from "axios";
 
-import ProductPage from "./pages/ProductPage/Main.vue";
-import AddedToCart from "./pages/AddedToCart.vue";
+import Product from "./pages/Product/Product.vue";
+import AddedToCart from "./pages/AddedToCart/AddedToCart.vue";
 import Home from "./pages/Home.vue";
-import Cart from "./pages/Cart.vue";
+import Cart from "./pages/Cart/Cart.vue";
 import App from "./App.vue";
 
 const routes = [
@@ -23,7 +23,7 @@ const routes = [
   },
   {
     path: "/product/:id",
-    component: <ProductPage />,
+    component: <Product />,
   },
   {
     path: "/cart",

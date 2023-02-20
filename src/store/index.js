@@ -9,7 +9,6 @@ export const store = createStore({
   },
   mutations: {
     increment(state, payload) {
-      console.log("cart i", this.state.cartItems);
       state.cartItems.push(payload);
     },
   },
@@ -20,7 +19,6 @@ export const store = createStore({
           accumulator + currentValue.attributes.price,
         0
       );
-
       return total;
     },
     itemsQuantity(state) {

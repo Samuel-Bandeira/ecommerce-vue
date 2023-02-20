@@ -1,0 +1,26 @@
+.product-main {
+  width: 250px;
+  .book-cover {
+    width: 100%;
+    margin-bottom: 0.5em;
+    margin-right: 2em;
+  }
+  .author-info-container {
+    margin-top: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .author-profile {
+      width: 60px;
+      height: 60px;
+      overflow: hidden;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 150%;
+      }
+    }
+  }
+}

@@ -59,3 +59,4 @@ export default {
   },
 };
 </script>
+<style lang="scss" src="../../scss/product-page/client-actions.scss" />

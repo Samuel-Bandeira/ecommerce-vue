@@ -14,21 +14,17 @@
   </div>
 </template>
 <script>
+import Subtotal from "@/pages/AddedToCart/Subtotal.vue";
 import { getBook } from "@/api/book/bookApi";
 import { getCoverSrcFromBook } from "@/utils";
-import Subtotal from "@/components/Subtotal.vue";
+
 export default {
   components: {
     Subtotal,
   },
   async created() {
-    console.log(this.$store.state.cartItems);
     const id = this.$route.query.newItem;
     this.book = await getBook({ id });
-    console.log(
-      "🚀 ~ file: AddedToCart.vue:11 ~ created ~ this.book",
-      this.book
-    );
   },
   data() {
     return {
@@ -40,4 +36,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="../scss/added-to-card/index.scss" />
+<style lang="scss" src="../../scss/added-to-card/index.scss" />

@@ -24,19 +24,7 @@
         </div>
       </template>
     </Card>
-
-    <Card style="width: 25rem; margin-bottom: 2em">
-      <template #content>
-        <div class="complete-purchase-card">
-          <Button label="Finalizar Pedido" />
-          <h2>Resumo do pedido</h2>
-          <div class="total-price">
-            <p>Total do pedido</p>
-            <p>R$ {{ totalCart }}</p>
-          </div>
-        </div>
-      </template>
-    </Card>
+    <OrderSummary />
   </div>
 </template>
 <script>
@@ -47,14 +35,14 @@ import {
   formatFullName,
 } from "@/utils";
 import Dropdown from "primevue/dropdown";
-import Button from "primevue/button";
 import Card from "primevue/card";
+import OrderSummary from "./OrderSummary.vue";
 export default {
   name: "cart-page",
   components: {
     Dropdown,
-    Button,
     Card,
+    OrderSummary,
   },
   data() {
     return {
@@ -70,9 +58,6 @@ export default {
       console.log("items", this.$store.state.cartItems);
       return this.$store.state.cartItems;
     },
-    totalCart() {
-      return this.$store.getters.totalCartPrice;
-    },
   },
   methods: {
     getCoverSrcFromBook,
@@ -81,4 +66,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="../scss/cart/index.scss" />
+<style lang="scss" src="../../scss/cart/index.scss" scoped />

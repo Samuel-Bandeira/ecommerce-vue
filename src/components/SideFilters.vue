@@ -14,8 +14,9 @@
   </div>
 </template>
 <script>
-import Checkbox from "primevue/checkbox";
 import { getBooksByCategories } from "@/api/book/bookApi";
+import Checkbox from "primevue/checkbox";
+
 export default {
   name: "side-filters",
   props: {
@@ -30,11 +31,11 @@ export default {
     };
   },
   methods: {
-    getFilteredBooks() {
-      const data = getBooksByCategories(this.selectedCategories);
+    async getFilteredBooks() {
+      const data = await getBooksByCategories(this.selectedCategories);
       console.log(data);
     },
   },
 };
 </script>
-<style lang="scss" src="../../scss/side-filters/index.scss"></style>
+<style lang="scss" src="../scss/side-filters/index.scss" />

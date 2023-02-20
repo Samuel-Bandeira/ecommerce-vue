@@ -53,4 +53,4 @@ export default {
 };
 </script>
 
-<style src="../scss/book-card/index.scss" lang="scss" scoped></style>
+<style src="../../scss/book-card/index.scss" lang="scss" scoped></style>

@@ -41,3 +41,4 @@ export default {
   },
 };
 </script>
+<style lang="scss" src="../../scss/product-page/book-main.scss" />

@@ -1,75 +1,7 @@
 .product-page-container {
   display: flex;
   align-items: flex-start;
-  width: 70%;
+  width: 80%;
   margin: auto;
-  padding: 2em;
-  .product-main {
-    .book-cover {
-      min-width: 200px;
-      margin-bottom: 0.5em;
-      margin-right: 2em;
-    }
-    .author-info-container {
-      margin-top: 0.5em;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      .author-profile {
-        width: 60px;
-        height: 60px;
-        overflow: hidden;
-        border-radius: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        img {
-          width: 150%;
-        }
-      }
-    }
-  }
-
-  .product-main-info {
-    margin-right: 2em;
-    h1 {
-      margin: 0;
-      margin-bottom: 0.2em;
-    }
-    .product-main-info-author {
-      margin-bottom: 0.5em;
-    }
-
-    .product-main-info-description {
-      text-align: justify;
-    }
-  }
-
-  .product-payment-action {
-    border: 0.2em solid gray;
-    padding: 1.5em;
-    border-radius: 0.5em;
-    .price-info {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      p,
-      h2 {
-        margin: 0;
-      }
-    }
-
-    .product-quantity {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1em;
-    }
-
-    .actions {
-      .p-button {
-        margin-bottom: 0.5em;
-      }
-    }
-  }
+  padding: 1em;
 }

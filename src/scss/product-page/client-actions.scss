@@ -1,0 +1,30 @@
+.product-payment-action {
+  border: 0.2em solid gray;
+  padding: 1.5em;
+  border-radius: 0.5em;
+  width: 25%;
+  .price-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p,
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .product-quantity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    .p-button {
+      margin-bottom: 0.5em;
+    }
+  }
+}

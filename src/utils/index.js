@@ -1,6 +1,14 @@
+import qs from "qs";
+
+export const populateFields = ({ fieldsToPopulate }) => {
+  return qs.stringify({
+    populate: fieldsToPopulate,
+  });
+};
+
 export const getCoverSrcFromBook = (book) => {
   return (
-    process.env.VUE_APP_API_BASE_URL +
+    process.env.VUE_APP_API_STATIC_URL +
     book.attributes.cover.data.attributes.formats.thumbnail.url
   );
 };
@@ -12,7 +20,7 @@ export const getAuthorsFromBook = (book) => {
 export const getImageSrcFromEntity = (entity) => {
   console.log("in func", entity);
   return (
-    process.env.VUE_APP_API_BASE_URL +
+    process.env.VUE_APP_API_STATIC_URL +
     entity.attributes.image.data.attributes.formats.thumbnail.url
   );
 };

@@ -8,11 +8,14 @@
     >
       <p>por: {{ formatFullName(author) }}</p>
     </div>
-    <p class="product-main-info-description">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis rem vero qui
-      cumque temporibus, voluptas nam! Accusamus, ratione? Omnis quasi, nemo
-      beatae repudiandae obcaecati dolorem magni. A voluptatibus ad eveniet.
-    </p>
+    <div class="product-description">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis rem vero
+        qui cumque temporibus, voluptas nam! Accusamus, ratione? Omnis quasi,
+        nemo beatae repudiandae obcaecati dolorem magni. A voluptatibus ad
+        eveniet.
+      </p>
+    </div>
   </div>
 </template>
 <script>
@@ -26,3 +29,4 @@ export default {
   },
 };
 </script>
+<style lang="scss" src="../../scss/product-page/book-info.scss" />
