@@ -15,6 +15,7 @@ export const getBooks = async () => {
 };
 
 export const getBooksByCategories = async (categories) => {
+  //hello
   const query = qs.stringify({
     populate: "categories,authors",
     filters: {
