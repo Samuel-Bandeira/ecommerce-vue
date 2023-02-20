@@ -7,7 +7,9 @@
           <i class="pi pi-check-circle" />
           <p>Adicionado ao carrinho</p>
         </div>
-        <p>{{ book.attributes.title }}</p>
+        <div class="book-title">
+          <p>{{ book.attributes.title }}</p>
+        </div>
       </div>
     </div>
     <Subtotal />
