@@ -7,4 +7,4 @@
 # Book Page
 ![book_page](https://user-images.githubusercontent.com/60707892/219969662-d55b3d72-f732-41de-bc01-8ddc5fe80d4c.png)
 # Product Added to Cart Page
-![product_added_to_cart](https://user-images.githubusercontent.com/60707892/219969666-16b2cdd0-e1a4-40da-9950-2d3053aa522d.png)
+![book_page_new](https://user-images.githubusercontent.com/60707892/220097751-6aea8ad1-3d48-48ff-b5d4-97132995a634.png)
