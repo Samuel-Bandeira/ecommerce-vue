@@ -42,7 +42,10 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$store.commit("increment", this.book);
+      this.$store.commit("increment", {
+        book: this.book,
+        quantity: Number(this.selectedQuantity.value),
+      });
       this.$router.push({
         path: `/cart/added`,
         query: {
@@ -53,7 +56,10 @@ export default {
   },
   data() {
     return {
-      selectedQuantity: null,
+      selectedQuantity: {
+        name: "1",
+        value: "1",
+      },
       quantities: [],
     };
   },

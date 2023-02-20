@@ -16,7 +16,7 @@ export const getBooks = async () => {
 
 export const getBooksByCategories = async (categories) => {
   const query = qs.stringify({
-    populate: "categories,authors",
+    populate: "categories,authors,cover",
     filters: {
       categories: {
         name: {

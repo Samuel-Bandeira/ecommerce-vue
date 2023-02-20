@@ -1,7 +1,11 @@
 <template>
   <div class="side-filters-container">
     <div class="side-filter-category-title">Tipos</div>
-    <template v-for="category in categories" :key="category.id">
+    <div
+      class="side-filter-option"
+      v-for="category in categories"
+      :key="category.id"
+    >
       <Checkbox
         :inputId="String(category.id)"
         name="category"
@@ -10,7 +14,7 @@
         @change="getFilteredBooks(category.attributes)"
       />
       <p>{{ category.attributes.name }}</p>
-    </template>
+    </div>
   </div>
 </template>
 <script>
@@ -32,8 +36,12 @@ export default {
   },
   methods: {
     async getFilteredBooks() {
-      const data = await getBooksByCategories(this.selectedCategories);
-      console.log(data);
+      const filteredProducts = await getBooksByCategories(
+        this.selectedCategories
+      );
+      this.$store.commit("changeFilteredBooks", {
+        filteredProducts,
+      });
     },
   },
 };

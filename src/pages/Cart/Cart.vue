@@ -14,12 +14,20 @@
             <p v-for="author in getAuthorsFromBook(item)" :key="author.id">
               Por {{ formatFullName(author) }}
             </p>
-            <Dropdown
-              v-model="selectedQuantity"
-              :options="quantities"
-              optionLabel="name"
-              placeholder="1"
-            />
+            <select
+              name="quantity"
+              :key="index"
+              :value="item.quantity"
+              @change="changeProductQuantity($event, item.id)"
+            >
+              <option
+                v-for="(quantity, index) in quantities"
+                :key="index"
+                :value="quantity.value"
+              >
+                {{ quantity.name }}
+              </option>
+            </select>
           </div>
         </div>
       </template>
@@ -34,19 +42,17 @@ import {
   getAuthorsFromBook,
   formatFullName,
 } from "@/utils";
-import Dropdown from "primevue/dropdown";
 import Card from "primevue/card";
 import OrderSummary from "./OrderSummary.vue";
 export default {
   name: "cart-page",
   components: {
-    Dropdown,
     Card,
     OrderSummary,
   },
   data() {
     return {
-      selectedQuantity: null,
+      selectedQuantity: "",
       quantities: [],
     };
   },
@@ -63,6 +69,13 @@ export default {
     getCoverSrcFromBook,
     getAuthorsFromBook,
     formatFullName,
+    changeProductQuantity(event, idToUpdate) {
+      const newQuantity = Number(event.target.value);
+      this.$store.commit("changeQuantity", {
+        idToUpdate,
+        newQuantity,
+      });
+    },
   },
 };
 </script>
