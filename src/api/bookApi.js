@@ -3,7 +3,7 @@ import { api } from "./api";
 import { populateFields } from "@/utils";
 
 export const getBooks = async () => {
-  const fieldsToPopulate = "cover,authors,categories";
+  const fieldsToPopulate = "cover,authors.image,categories";
   const query = populateFields({ fieldsToPopulate });
   const response = await api.get(`/books?${query}`);
   const { data } = response.data;

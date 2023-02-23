@@ -15,6 +15,8 @@ import Home from "./pages/Home.vue";
 import Cart from "./pages/Cart/Cart.vue";
 import App from "./App.vue";
 import Login from "./pages/Login.vue";
+import Playground from "./pages/Playground/Playground.vue";
+import ListBooks from "./pages/ListBooks.vue";
 const routes = [
   {
     path: "/",
@@ -36,6 +38,14 @@ const routes = [
   {
     path: "/login",
     component: <Login />,
+  },
+  {
+    path: "/playground",
+    component: <Playground />,
+  },
+  {
+    path: "/books",
+    component: <ListBooks />,
   },
 ];
 

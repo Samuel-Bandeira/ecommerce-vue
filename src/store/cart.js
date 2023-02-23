@@ -23,7 +23,6 @@ export const cartStore = {
       }
     },
     changeQuantity(state, payload) {
-      console.log("in change quanitty");
       state.cartItems.forEach((item) => {
         if (item.id === payload.idToUpdate) {
           item.quantity = payload.newQuantity;

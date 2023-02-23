@@ -68,6 +68,7 @@ import AutoComplete from "primevue/autocomplete";
 import Dropdown from "primevue/dropdown";
 import Menubar from "primevue/menubar";
 import Badge from "primevue/badge";
+
 import {
   getBooks,
   getBooksByCategories,
@@ -117,22 +118,18 @@ export default {
       this.redirectToBookPage({ bookId: book.id });
     },
     searchBook(event) {
-      setTimeout(() => {
-        if (!event.query.trim().length) {
-          this.filteredBooks = [...this.books];
-        } else {
-          this.filteredBooks = this.books.filter((book) => {
-            return book.attributes.title
-              .toLowerCase()
-              .startsWith(event.query.toLowerCase());
-          });
-        }
-      }, 250);
+      if (!event.query.trim().length) {
+        this.filteredBooks = [...this.books];
+      } else {
+        this.filteredBooks = this.books.filter((book) => {
+          return book.attributes.title
+            .toLowerCase()
+            .startsWith(event.query.toLowerCase());
+        });
+      }
     },
     async changeCategory({ category }) {
       const books = await getBooksByCategories([category.attributes.name]);
-
-      console.log(books);
       this.$store.commit("productStore/changeFilteredBooks", {
         filteredProducts: books,
       });
@@ -147,7 +144,6 @@ export default {
       this.$router.push({ path: "/login" });
     },
     redirectToBookPage({ bookId }) {
-      console.log("hello");
       this.$router.push({ path: `/product/${bookId}` });
     },
   },
