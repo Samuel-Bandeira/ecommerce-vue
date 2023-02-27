@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import Subtotal from "@/pages/AddedToCart/Subtotal.vue";
+import Subtotal from "@/components/CartNewItem/Subtotal.vue";
 import { getBook } from "@/api/bookApi";
 import { getCoverSrcFromBook } from "@/utils";
 
@@ -38,4 +38,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="../../scss/added-to-card/index.scss" />
+<style lang="scss" src="../scss/cart-new-item/cart-new-item.scss" />

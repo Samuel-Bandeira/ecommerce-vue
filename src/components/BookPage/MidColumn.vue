@@ -1,7 +1,7 @@
 <template>
   <div class="product-main">
     <img :src="getCoverSrcFromBook(book)" alt="book_cover" class="book-cover" />
-    <div>
+    <!-- <div>
       <p>Author</p>
       <div
         v-for="author in authors"
@@ -17,18 +17,18 @@
         </div>
         <Button label="Seguir" />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
 import { getCoverSrcFromBook, getImageSrcFromEntity } from "@/utils";
-import Button from "primevue/button";
+// import Button from "primevue/button";
 
 export default {
   name: "center-content",
   props: ["book"],
   components: {
-    Button,
+    // Button,
   },
   computed: {
     authors() {
@@ -41,4 +41,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="../../scss/product-page/book-main.scss" />
+<style lang="scss" src="../../scss/book-page/mid-column.scss" />

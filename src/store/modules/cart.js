@@ -29,22 +29,27 @@ export const cartStore = {
         }
       });
     },
+    clearCart(state) {
+      state.cartItems = [];
+    },
   },
   getters: {
     totalCartPrice(state) {
-      const total = state.cartItems.reduce(
+      if (state.cartItems.length === 0) return 0;
+
+      return state.cartItems.reduce(
         (accumulator, currentValue) =>
           accumulator + currentValue.attributes.price * currentValue.quantity,
         0
       );
-      return total;
     },
     itemsQuantity(state) {
-      const quantity = state.cartItems.reduce(
+      if (state.cartItems.length === 0) return 0;
+
+      return state.cartItems.reduce(
         (accumulator, currentValue) => accumulator + currentValue.quantity,
         0
       );
-      return quantity;
     },
   },
 };

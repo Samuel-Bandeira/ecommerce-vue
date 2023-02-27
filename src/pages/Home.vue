@@ -1,7 +1,7 @@
 <template>
   <div class="home-container" v-if="books && categories">
-    <SideFilters :categories="categories" />
-    <DisplayedBook :books="books" />
+    <Filters :categories="categories" />
+    <Books :books="books" />
   </div>
   <div v-else>
     <div>Loading...</div>
@@ -10,8 +10,8 @@
 <script lang="js">
 
 import { getBooks, getBooksCategories } from '../api/bookApi'
-import DisplayedBook from '@/components/DisplayedProducts/DisplayedBooks.vue';
-import SideFilters from '@/components/SideFilters.vue'
+import Books from '@/components/Home/Books.vue';
+import Filters from '@/components/Home/Filters.vue'
 
 export default {
   name: "home-page",
@@ -28,14 +28,15 @@ export default {
   async created() {
     this.categories = await getBooksCategories()
     const fetchedProducts = await getBooks();
+    console.log(fetchedProducts)
     this.$store.commit('productStore/setProducts', {
       fetchedProducts
     })
     this.books = this.$store.state.productStore.homeProducts
   },
   components: {
-    DisplayedBook,
-    SideFilters
+    Books,
+    Filters
   },
   data() {
     return {
@@ -46,4 +47,4 @@ export default {
   methods: {}
 };
 </script>
-<style lang="scss" src="../scss/home/index.scss" />
+<style lang="scss" src="../scss/home/home.scss" />

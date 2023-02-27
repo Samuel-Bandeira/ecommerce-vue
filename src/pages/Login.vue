@@ -53,6 +53,7 @@ export default {
       });
 
       if (isLogged) {
+        //mergeCart()
         this.$router.push("/");
       }
     },

@@ -2,8 +2,8 @@ export const authStore = {
   namespaced: true,
   state() {
     return {
-      token: "",
-      user: null,
+      token: localStorage.getItem("token"),
+      user: JSON.parse(localStorage.getItem("user")),
     };
   },
   mutations: {
@@ -12,6 +12,10 @@ export const authStore = {
     },
     setUser(state, { user }) {
       state.user = user;
+    },
+    clearUserAndToken(state) {
+      state.user = null;
+      state.token = null;
     },
   },
 };

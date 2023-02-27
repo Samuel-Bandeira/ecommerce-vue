@@ -42,9 +42,9 @@
         <i class="pi pi-search" />
       </div>
     </div>
-    <div v-if="user" class="login-container">
-      <p>Bem vindo</p>
-      <p>{{ user.username }}</p>
+    <div v-if="user" class="login-container" @click="logUserOut()">
+      <p>Olá {{ user.username }}</p>
+      <p>Logout</p>
     </div>
     <div v-else class="login-container" @click="redirectToLogin()">
       <p>Olá, bem vindo</p>
@@ -74,7 +74,10 @@ import {
   getBooksByCategories,
   getBooksCategories,
 } from "../api/bookApi";
-import { getSubNavbarItems, getCoverSrcFromBook } from "../utils/index";
+import { getCoverSrcFromBook } from "../utils/index";
+import { logout } from "../api/authApi";
+// import { getSubNavbarItems } from "../utils/index";
+
 export default {
   name: "navbar-component",
   components: {
@@ -86,8 +89,7 @@ export default {
   async created() {
     this.books = await getBooks();
     this.categories = await getBooksCategories();
-    console.log("cate", this.categories);
-    this.subNavbarItems = getSubNavbarItems();
+    // this.subNavbarItems = getSubNavbarItems();
   },
   watch: {
     selectedCategory(newValue) {
@@ -109,11 +111,20 @@ export default {
       filteredBooks: null,
       selectedCategory: null,
       categories: null,
-      subNavbarItems: [],
+      subNavbarItems: [
+        {
+          label: "",
+          url: "",
+        },
+      ],
     };
   },
   methods: {
     getCoverSrcFromBook,
+    logUserOut() {
+      logout();
+      this.redirectToLogin();
+    },
     search(book) {
       this.redirectToBookPage({ bookId: book.id });
     },

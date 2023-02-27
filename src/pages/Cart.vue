@@ -43,7 +43,7 @@ import {
   formatFullName,
 } from "@/utils";
 import Card from "primevue/card";
-import OrderSummary from "./OrderSummary.vue";
+import OrderSummary from "../components/Cart/OrderSummary.vue";
 export default {
   name: "cart-page",
   components: {
@@ -79,4 +79,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="../../scss/cart/index.scss" scoped />
+<style lang="scss" src="../scss/cart/index.scss" scoped />

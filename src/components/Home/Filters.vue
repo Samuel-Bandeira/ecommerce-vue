@@ -46,4 +46,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="../scss/side-filters/index.scss" />
+<style lang="scss" src="../../scss/side-filters/index.scss" />

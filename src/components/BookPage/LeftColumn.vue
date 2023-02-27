@@ -29,4 +29,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="../../scss/product-page/book-info.scss" />
+<style lang="scss" src="../../scss/book-page/left-column.scss" />

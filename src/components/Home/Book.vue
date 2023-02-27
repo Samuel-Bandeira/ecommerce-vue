@@ -28,6 +28,7 @@
 import Card from "primevue/card";
 import { getCoverSrcFromBook, formatFullName } from "@/utils";
 export default {
+  name: "book-component",
   props: ["book"],
   computed: {
     authors() {
@@ -53,4 +54,4 @@ export default {
 };
 </script>
 
-<style src="../../scss/book-card/index.scss" lang="scss" scoped></style>
+<style src="../../scss/home/book.scss" lang="scss" scoped></style>

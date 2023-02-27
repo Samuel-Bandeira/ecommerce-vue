@@ -7,16 +7,15 @@ import "/node_modules/primeflex/primeflex.css";
 import { store } from "./store";
 import { createApp } from "vue";
 import * as VueRouter from "vue-router";
-import axios from "axios";
 
-import Product from "./pages/Product/Product.vue";
-import AddedToCart from "./pages/AddedToCart/AddedToCart.vue";
+import Product from "./pages/BookPage.vue";
+import AddedToCart from "./pages/CartNewItem.vue";
 import Home from "./pages/Home.vue";
-import Cart from "./pages/Cart/Cart.vue";
+import Cart from "./pages/Cart.vue";
 import App from "./App.vue";
 import Login from "./pages/Login.vue";
-import Playground from "./pages/Playground/Playground.vue";
-import ListBooks from "./pages/ListBooks.vue";
+import ListBooks from "./pages/BooksDataTable.vue";
+import DataTableChallenge from "./pages/DataTableChallenge.vue";
 const routes = [
   {
     path: "/",
@@ -40,12 +39,12 @@ const routes = [
     component: <Login />,
   },
   {
-    path: "/playground",
-    component: <Playground />,
-  },
-  {
     path: "/books",
     component: <ListBooks />,
+  },
+  {
+    path: "/data-table-challenge",
+    component: <DataTableChallenge></DataTableChallenge>,
   },
 ];
 
@@ -57,7 +56,4 @@ const router = VueRouter.createRouter({
 export const app = createApp(App);
 app.use(router).use(PrimeVue).use(store);
 
-app.config.globalProperties.$http = axios.create({
-  baseURL: "http://localhost:1337/",
-});
 app.mount("#app");

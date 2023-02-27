@@ -30,6 +30,7 @@
 import { getQuantityPossibilities } from "@/utils";
 import Dropdown from "primevue/dropdown";
 import Button from "primevue/button";
+// import { addProductToCart } from "@/api/userApi";
 export default {
   name: "right-content",
   props: ["book"],
@@ -42,10 +43,14 @@ export default {
   },
   methods: {
     addToCart() {
+      //if logged add to db cart <-- how to post a many to many relationship strapi <-- ans: by id
+      // addProductToCart({})
+      //if not logged add to vuex storage
       this.$store.commit("cartStore/increment", {
         book: this.book,
         quantity: Number(this.selectedQuantity.value),
       });
+
       this.$router.push({
         path: `/cart/added`,
         query: {
@@ -65,4 +70,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="../../scss/product-page/client-actions.scss" />
+<style lang="scss" src="../../scss/book-page/right-column.scss" />

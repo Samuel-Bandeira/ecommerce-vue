@@ -1,7 +1,17 @@
 <template>
-  <DataTable :value="books" :paginator="true" :rows="3">
+  <DataTable :value="books" :rows="3">
     <Column field="id" header="Id" :sortable="true" />
     <Column field="attributes.title" header="Title" :sortable="true" />
+    <Column header="Category">
+      <template #body="slotProps">
+        <div
+          v-for="category in slotProps.data.attributes.categories.data"
+          :key="category.id"
+        >
+          <p>{{ category.attributes.name }}</p>
+        </div>
+      </template>
+    </Column>
     <Column field="attributes.price" header="Price" :sortable="true">
       <template #body="slotProps">
         <p>{{ "R$ " + slotProps.data.attributes.price }}</p>
@@ -9,48 +19,23 @@
     </Column>
     <Column header="Cover">
       <template #body="slotProps">
-        <div
-          style="
-            width: 50px;
-            height: 50px;
-            overflow: hidden;
-            border-radius: 100%;
-          "
-        >
+        <div class="book-cover">
           <img :src="getCoverSrcFromBook(slotProps.data)" style="width: 100%" />
         </div>
       </template>
     </Column>
     <Column header="Authors">
       <template #body="slotProps">
-        <div
-          v-for="author in getAuthorsFromBook(slotProps.data)"
-          :key="author.id"
-          style="display: flex; align-items: center"
-        >
+        <div class="authors-container">
           <div
-            style="
-              width: 50px;
-              height: 50px;
-              border-radius: 100%;
-              overflow: hidden;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-right: 0.5em;
-            "
+            v-for="author in getAuthorsFromBook(slotProps.data)"
+            :key="author.id"
+            class="image-container"
           >
-            <img
-              :src="getImageSrcFromEntity(author)"
-              alt="author-image"
-              style="width: 130%"
-            />
+            <img :src="getImageSrcFromEntity(author)" alt="author-image" />
           </div>
-
-          <p>{{ formatFullName(author) }}</p>
-        </div>
-      </template></Column
-    >
+        </div> </template
+    ></Column>
     <Column header="options">
       <template #body>
         <div>
@@ -100,4 +85,4 @@ export default {
   },
 };
 </script>
-<style></style>
+<style src="../scss/list-books.scss" lang="scss" scoped="true" />
