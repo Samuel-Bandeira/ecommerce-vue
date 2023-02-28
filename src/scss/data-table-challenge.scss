@@ -4,6 +4,15 @@ $background: rgb(246, 246, 249);
   margin-bottom: 0.25em;
 }
 
+.p-multiselect {
+  width: 100%;
+  max-width: 200px !important;
+}
+
+.multiselect-pre-selected {
+  display: flex;
+}
+
 body {
   background-color: $background;
 }
@@ -12,6 +21,7 @@ body {
   width: 90%;
   margin: 0 auto;
 }
+
 .p-datatable-header {
   background-color: white !important;
 }
@@ -27,12 +37,13 @@ body {
 
 .options {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
   margin-bottom: 1em;
   h1 {
     margin: 0;
   }
+  gap: 1em;
 }
 
 .author-container {

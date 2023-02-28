@@ -3,6 +3,7 @@
     header="Create Book"
     v-model:visible="displayCreateBookModal"
     :modal="true"
+    @after-hide="onCreateBookModalClose()"
   >
     <div class="input-container">
       <p>Title:</p>
@@ -15,9 +16,12 @@
         placeholder="Price"
         type="number"
         v-model="createBookData.price"
+        min="1"
+        step="any"
       />
     </div>
-    <div class="input-container">
+
+    <div class="input-container multiselect">
       <p>Authors</p>
       <MultiSelect
         v-model="createBookData.authors"
@@ -50,14 +54,31 @@
 
     <div class="input-container">
       <p>Authors</p>
+
       <MultiSelect
         v-model="updateBookData.authors"
         :options="authors"
-        optionLabel="name"
         placeholder="Select Author(s)"
-      />
+      >
+        <template #value="slotProps">
+          <div class="multiselect-pre-selected">
+            <p v-for="(author, index) in slotProps.value" :key="index">
+              <template v-if="index == slotProps.value.length - 1">
+                {{ `${author.name}` }}
+              </template>
+              <template v-else>
+                {{ author.name + "," + "&nbsp;" }}
+              </template>
+            </p>
+          </div>
+        </template>
+        <template #option="slotProps">
+          <p>{{ slotProps.option.name }}</p>
+        </template>
+      </MultiSelect>
     </div>
     <Button label="Update" @click="updateBook()" />
+    <!-- <p>{{ updateBookData.authors }}</p> -->
   </Dialog>
 
   <div class="container">
@@ -68,13 +89,23 @@
         label="Create new entry"
         @click="openCreateBookModal()"
       ></Button>
+      <Button
+        label="Delete"
+        :disabled="isDeleteButtonDisable"
+        icon="pi pi-trash"
+        icon-pos="left"
+        class="p-button-danger"
+        @click="removeBooks()"
+      />
     </div>
     <DataTable
       :value="books"
+      dataKey="id"
       class="row-class"
       :rowHover="true"
       v-model:selection="selectedBooks"
       v-model:filters="filters"
+      :globalFilterFields="['title']"
       filterDisplay="menu"
     >
       <template #header>
@@ -95,10 +126,19 @@
       <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
 
       <Column header="Id" field="id" />
-      <Column header="Title" field="title" sortable />
-      <Column header="Price">
+      <Column header="Title" field="title" sortable>
+        <template #filter="{ filterModel }">
+          <InputText
+            type="text"
+            v-model="filterModel.value"
+            class="p-column-filter"
+            placeholder="Search by name"
+          />
+        </template>
+      </Column>
+      <Column header="Price" field="price" sortable>
         <template #body="{ data }">
-          <p>{{ `R$ ${data.price}` }}</p>
+          <p>{{ `R$ ${Number(data.price)}` }}</p>
         </template>
       </Column>
       <Column header="Author">
@@ -163,6 +203,16 @@ export default {
     Dialog,
     MultiSelect,
   },
+  watch: {
+    selectedBooks(selected) {
+      if (selected.length > 0) {
+        console.log("books selected", selected);
+        this.isDeleteButtonDisable = false;
+      } else {
+        this.isDeleteButtonDisable = true;
+      }
+    },
+  },
   created() {
     this.bookService = new BookService();
     this.books = this.bookService.books;
@@ -182,12 +232,20 @@ export default {
       selectedBooks: null,
       displayCreateBookModal: false,
       displayUpdateBookModal: false,
+      isDeleteButtonDisable: true,
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
       },
     };
   },
   methods: {
+    onCreateBookModalClose() {
+      this.createBookData = {
+        title: "",
+        price: "",
+        authors: "",
+      };
+    },
     openCreateBookModal() {
       this.displayCreateBookModal = true;
     },
@@ -213,6 +271,9 @@ export default {
     removeBook({ id }) {
       console.log("in remove", id);
       this.bookService.removeBook({ id });
+    },
+    removeBooks() {
+      console.log(this.selectedBooks);
     },
   },
 };
