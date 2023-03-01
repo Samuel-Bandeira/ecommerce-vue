@@ -27,10 +27,11 @@
         v-model="createBookData.authors"
         :options="authors"
         optionLabel="name"
+        optionValue="id"
         placeholder="Select Author(s)"
       />
     </div>
-    <Button label="Add" @click="createBook({ payload: createBookData })" />
+    <Button label="Add" @click="createBook()" />
   </Dialog>
 
   <Dialog
@@ -58,27 +59,13 @@
       <MultiSelect
         v-model="updateBookData.authors"
         :options="authors"
+        optionLabel="name"
+        optionValue="id"
         placeholder="Select Author(s)"
       >
-        <template #value="slotProps">
-          <div class="multiselect-pre-selected">
-            <p v-for="(author, index) in slotProps.value" :key="index">
-              <template v-if="index == slotProps.value.length - 1">
-                {{ `${author.name}` }}
-              </template>
-              <template v-else>
-                {{ author.name + "," + "&nbsp;" }}
-              </template>
-            </p>
-          </div>
-        </template>
-        <template #option="slotProps">
-          <p>{{ slotProps.option.name }}</p>
-        </template>
       </MultiSelect>
     </div>
     <Button label="Update" @click="updateBook()" />
-    <!-- <p>{{ updateBookData.authors }}</p> -->
   </Dialog>
 
   <div class="container">
@@ -141,7 +128,7 @@
           <p>{{ `R$ ${Number(data.price)}` }}</p>
         </template>
       </Column>
-      <Column header="Author">
+      <Column header="Author(s)">
         <template #body="{ data }">
           <div
             v-for="(author, index) in data.authors"
@@ -164,7 +151,7 @@
           </div>
         </template>
       </Column>
-      <Column header="options">
+      <Column header="Options">
         <template #body="{ data }">
           <div>
             <Button
@@ -180,6 +167,7 @@
           </div>
         </template>
       </Column>
+      <template #empty> No records found. </template>
     </DataTable>
   </div>
 </template>
@@ -191,7 +179,7 @@ import InputText from "primevue/inputtext";
 import { BookService } from "../data/books";
 import Dialog from "primevue/dialog";
 import MultiSelect from "primevue/multiselect";
-import { FilterMatchMode } from "primevue/api";
+import { FilterMatchMode, FilterOperator } from "primevue/api";
 
 export default {
   name: "data-table-challenge",
@@ -206,7 +194,6 @@ export default {
   watch: {
     selectedBooks(selected) {
       if (selected.length > 0) {
-        console.log("books selected", selected);
         this.isDeleteButtonDisable = false;
       } else {
         this.isDeleteButtonDisable = true;
@@ -216,6 +203,7 @@ export default {
   created() {
     this.bookService = new BookService();
     this.books = this.bookService.books;
+    console.log(this.books);
     this.authors = this.bookService.authors;
   },
   data() {
@@ -228,13 +216,22 @@ export default {
         price: "",
         authors: null,
       },
-      updateBookData: null,
+      updateBookData: {
+        title: "",
+        price: "",
+        authors: null,
+      },
       selectedBooks: null,
+      selectedAuthors: null,
       displayCreateBookModal: false,
       displayUpdateBookModal: false,
       isDeleteButtonDisable: true,
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        title: {
+          operator: FilterOperator.AND,
+          constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
+        },
       },
     };
   },
@@ -249,8 +246,8 @@ export default {
     openCreateBookModal() {
       this.displayCreateBookModal = true;
     },
-    createBook({ payload }) {
-      this.bookService.createBook({ payload });
+    createBook() {
+      this.bookService.createBook({ bookToBeCreatedData: this.createBookData });
       this.displayCreateBookModal = false;
       this.createBookData = {
         title: "",
@@ -259,21 +256,27 @@ export default {
       };
     },
     openUpdateBookModal({ id }) {
-      let recordCopy = JSON.stringify(this.bookService.findBook({ id }));
-      this.updateBookData = JSON.parse(recordCopy);
-      console.log("updated book data", this.updateBookData);
+      const bookReference = this.bookService.books.find(
+        (book) => book.id === id
+      );
+
+      this.updateBookData = {
+        ...bookReference,
+        authors: bookReference.authors.map((author) => author.id),
+      };
+
       this.displayUpdateBookModal = true;
     },
     updateBook() {
-      this.bookService.updateBook({ payload: this.updateBookData });
+      this.bookService.updateBook({ bookToBeUpdatedData: this.updateBookData });
       this.displayUpdateBookModal = false;
     },
     removeBook({ id }) {
-      console.log("in remove", id);
       this.bookService.removeBook({ id });
     },
     removeBooks() {
-      console.log(this.selectedBooks);
+      this.bookService.removeBooks({ books: this.selectedBooks });
+      this.selectedBooks = [];
     },
   },
 };

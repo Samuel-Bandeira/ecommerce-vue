@@ -16,6 +16,9 @@ import App from "./App.vue";
 import Login from "./pages/Login.vue";
 import ListBooks from "./pages/BooksDataTable.vue";
 import DataTableChallenge from "./pages/DataTableChallenge.vue";
+import InfinityScrollDataTable from "./pages/InfinityScrollDataTable.vue";
+import VueObserveVisibility from "vue-observe-visibility";
+
 const routes = [
   {
     path: "/",
@@ -46,6 +49,10 @@ const routes = [
     path: "/data-table-challenge",
     component: <DataTableChallenge></DataTableChallenge>,
   },
+  {
+    path: "/infinity-scroll-data-table",
+    component: <InfinityScrollDataTable />,
+  },
 ];
 
 const router = VueRouter.createRouter({
@@ -54,6 +61,6 @@ const router = VueRouter.createRouter({
 });
 
 export const app = createApp(App);
-app.use(router).use(PrimeVue).use(store);
-
+app.use(router).use(PrimeVue).use(store).use(VueObserveVisibility);
+app.directive("observe-visibility", VueObserveVisibility.ObserveVisibility);
 app.mount("#app");
