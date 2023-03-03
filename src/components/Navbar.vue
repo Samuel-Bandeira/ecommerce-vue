@@ -57,7 +57,7 @@
     <div class="shopping-cart" @click="redirectToCart()">
       <i class="pi pi-shopping-cart" style="font-size: 2em" />
       <p>Carrinho</p>
-      <Badge :value="totalItemsQuantity" />
+      <Badge v-if="cart" :value="cart.attributes.quantity" />
     </div>
   </div>
   <Menubar :model="subNavbarItems" class="sub-menu" />
@@ -72,10 +72,11 @@ import Badge from "primevue/badge";
 import {
   getBooks,
   getBooksByCategories,
-  getBooksCategories,
+  getBooksCategories
 } from "../api/bookApi";
 import { getCoverSrcFromBook } from "../utils/index";
 import { logout } from "../api/authApi";
+import { getUser, getUserCart } from "@/api/user";
 // import { getSubNavbarItems } from "../utils/index";
 
 export default {
@@ -84,29 +85,30 @@ export default {
     Menubar,
     AutoComplete,
     Dropdown,
-    Badge,
+    Badge
   },
   async created() {
     this.books = await getBooks();
     this.categories = await getBooksCategories();
-    // this.subNavbarItems = getSubNavbarItems();
+
+    if (this.$store.state.authStore.user) {
+      const userId = this.$store.state.authStore.user.id;
+      this.user = await getUser({ userId });
+      this.cart = await getUserCart({ userId });
+      console.log(this.cart);
+    }
   },
   watch: {
     selectedCategory(newValue) {
       this.changeCategory({ category: newValue });
-    },
+    }
   },
-  computed: {
-    totalItemsQuantity() {
-      return this.$store.getters["cartStore/itemsQuantity"];
-    },
-    user() {
-      return this.$store.state.authStore.user;
-    },
-  },
+
   data() {
     return {
       books: [],
+      cart: null,
+      user: null,
       selectedBook: null,
       filteredBooks: null,
       selectedCategory: null,
@@ -114,13 +116,14 @@ export default {
       subNavbarItems: [
         {
           label: "",
-          url: "",
-        },
-      ],
+          url: ""
+        }
+      ]
     };
   },
   methods: {
     getCoverSrcFromBook,
+    getUser,
     logUserOut() {
       logout();
       this.redirectToLogin();
@@ -142,7 +145,7 @@ export default {
     async changeCategory({ category }) {
       const books = await getBooksByCategories([category.attributes.name]);
       this.$store.commit("productStore/changeFilteredBooks", {
-        filteredProducts: books,
+        filteredProducts: books
       });
     },
     redirectToHome() {
@@ -156,8 +159,8 @@ export default {
     },
     redirectToBookPage({ bookId }) {
       this.$router.push({ path: `/product/${bookId}` });
-    },
-  },
+    }
+  }
 };
 </script>
 <style src="../scss/navbar/index.scss" lang="scss" />

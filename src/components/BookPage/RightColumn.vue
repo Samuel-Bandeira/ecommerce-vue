@@ -36,7 +36,7 @@ export default {
   props: ["book"],
   components: {
     Dropdown,
-    Button,
+    Button
   },
   created() {
     this.quantities = getQuantityPossibilities();
@@ -46,28 +46,29 @@ export default {
       //if logged add to db cart <-- how to post a many to many relationship strapi <-- ans: by id
       // addProductToCart({})
       //if not logged add to vuex storage
+      console.log("book", this.book);
       this.$store.commit("cartStore/increment", {
         book: this.book,
-        quantity: Number(this.selectedQuantity.value),
+        quantity: Number(this.selectedQuantity.value)
       });
 
       this.$router.push({
         path: `/cart/added`,
         query: {
-          newItem: this.book.id,
-        },
+          newItem: this.book.id
+        }
       });
-    },
+    }
   },
   data() {
     return {
       selectedQuantity: {
         name: "1",
-        value: "1",
+        value: "1"
       },
-      quantities: [],
+      quantities: []
     };
-  },
+  }
 };
 </script>
 <style lang="scss" src="../../scss/book-page/right-column.scss" />

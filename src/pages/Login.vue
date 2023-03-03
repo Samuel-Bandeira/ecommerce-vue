@@ -20,7 +20,7 @@
           placeholder="Password"
         />
       </div>
-      <Button label="Continuar" @click="postLogin()" />
+      <Button label="Continuar" @click="handleLogin()" />
     </div>
     <div class="go-to-register-container">
       <p>Novo na amazon?</p>
@@ -36,28 +36,30 @@ export default {
   name: "login-page",
   components: {
     Button,
-    InputText,
+    InputText
   },
   data() {
     return {
       form: {
         identifier: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   methods: {
-    postLogin() {
-      const isLogged = login({
-        credentials: this.form,
+    async handleLogin() {
+      const successOnLogin = await login({
+        credentials: this.form
       });
 
-      if (isLogged) {
+      console.log(successOnLogin);
+
+      if (successOnLogin) {
         //mergeCart()
         this.$router.push("/");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" src="../scss/login/index.scss" scoped />

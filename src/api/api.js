@@ -1,12 +1,25 @@
 import axios from "axios";
-const jwtToken = localStorage.getItem("jwt");
-console.log(jwtToken);
 
-export const api = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE_URL,
-});
+const generateAxiosInstance = () => {
+  const axiosInstance = axios.create({
+    baseURL: process.env.VUE_APP_API_BASE_URL
+  });
 
-export const setAuthorizationHeader = (token) => {
-  if (token) api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  else api.defaults.headers.common["Authorization"] = null;
+  const jwtToken = localStorage.getItem("jwtToken");
+
+  if (jwtToken) {
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
+  }
+
+  return axiosInstance;
+};
+
+export const api = generateAxiosInstance();
+
+export const setAuthorizationHeader = (jwtToken) => {
+  api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
+};
+
+export const unSetAuthorizationHeader = () => {
+  api.defaults.headers.common.Authorization = null;
 };

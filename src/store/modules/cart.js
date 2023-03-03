@@ -2,7 +2,8 @@ export const cartStore = {
   namespaced: true,
   state() {
     return {
-      cartItems: [],
+      //http://localhost:1337/api/carts?filters[users_permissions_user][username][$eq]=testing&populate=*
+      cartItems: []
     };
   },
   mutations: {
@@ -31,7 +32,7 @@ export const cartStore = {
     },
     clearCart(state) {
       state.cartItems = [];
-    },
+    }
   },
   getters: {
     totalCartPrice(state) {
@@ -50,6 +51,6 @@ export const cartStore = {
         (accumulator, currentValue) => accumulator + currentValue.quantity,
         0
       );
-    },
-  },
+    }
+  }
 };

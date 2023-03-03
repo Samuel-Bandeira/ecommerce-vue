@@ -1,29 +1,32 @@
-import { api, setAuthorizationHeader } from "./api";
+import { api, setAuthorizationHeader, unSetAuthorizationHeader } from "./api";
 import { store } from "@/store";
+
 export const login = async ({ credentials }) => {
-  const response = await api.post("/auth/local", credentials);
-  if (response.status != 200) return false;
+  let successOnLogin = false;
+  try {
+    const { data } = await api.post("/auth/local", credentials);
+    const { user, jwt } = data;
 
-  const token = response.data.jwt;
-  const user = response.data.user;
+    setAuthorizationHeader(jwt);
 
-  localStorage.setItem("token", token);
-  localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("jwtToken", jwt);
+    console.log("jwt", jwt);
+    localStorage.setItem("user", JSON.stringify(user));
 
-  store.commit("authStore/setToken", { token });
-  store.commit("authStore/setUser", { user });
+    store.commit("authStore/setToken", { jwt });
+    store.commit("authStore/setUser", { user });
 
-  setAuthorizationHeader(token);
-
-  return true;
+    successOnLogin = true;
+  } catch (e) {
+    console.log("Login Error");
+  }
+  return successOnLogin;
 };
 
 export const logout = () => {
-  localStorage.removeItem("token");
+  localStorage.removeItem("jwtToken");
   localStorage.removeItem("user");
-  setAuthorizationHeader(null);
   store.commit("authStore/clearUserAndToken");
   store.commit("cartStore/clearCart");
+  unSetAuthorizationHeader();
 };
-
-export const verifyToken = async () => {};
