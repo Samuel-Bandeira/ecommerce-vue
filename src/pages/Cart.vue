@@ -2,17 +2,13 @@
   <div class="cart-container">
     <Card>
       <template #content>
-        <div class="cart-product" v-for="item in items" :key="item.id">
-          <img
-            :src="getCoverSrcFromBook(item)"
-            alt="book-cover"
-            class="cart-item-image"
-          />
+        <div class="cart-product" v-for="item in cartItems" :key="item.id">
+          <img :src="item.cover" alt="book-cover" class="cart-item-image" />
           <div>
-            <p>{{ item.attributes.title }}</p>
-            <p>R$ {{ item.attributes.price }}</p>
-            <p v-for="author in getAuthorsFromBook(item)" :key="author.id">
-              Por {{ formatFullName(author) }}
+            <p>{{ item.title }}</p>
+            <p>R$ {{ item.price }}</p>
+            <p v-for="author in item.authors" :key="author.id">
+              Por {{ author.name }}
             </p>
             <select
               name="quantity"
@@ -40,7 +36,7 @@ import {
   getCoverSrcFromBook,
   getQuantityPossibilities,
   getAuthorsFromBook,
-  formatFullName,
+  formatFullName
 } from "@/utils";
 import Card from "primevue/card";
 import OrderSummary from "../components/Cart/OrderSummary.vue";
@@ -48,22 +44,21 @@ export default {
   name: "cart-page",
   components: {
     Card,
-    OrderSummary,
-  },
-  data() {
-    return {
-      selectedQuantity: "",
-      quantities: [],
-    };
+    OrderSummary
   },
   created() {
     this.quantities = getQuantityPossibilities();
   },
+  data() {
+    return {
+      selectedQuantity: "",
+      quantities: []
+    };
+  },
   computed: {
-    items() {
-      console.log("items", this.$store.state.cartItems);
-      return this.$store.state.cartStore.cartItems;
-    },
+    cartItems() {
+      return this.$store.state.cartStore.cart;
+    }
   },
   methods: {
     getCoverSrcFromBook,
@@ -73,10 +68,10 @@ export default {
       const newQuantity = Number(event.target.value);
       this.$store.commit("cartStore/changeQuantity", {
         idToUpdate,
-        newQuantity,
+        newQuantity
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" src="../scss/cart/index.scss" scoped />

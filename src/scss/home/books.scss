@@ -1,0 +1,18 @@
+.section-container {
+  .section-label {
+    padding-left: 2.4em;
+    margin-top: 0;
+    font-size: 1.6em;
+    font-weight: bold;
+  }
+  .books-container {
+    display: flex;
+    gap: 2em;
+  }
+
+  .p-carousel {
+    .p-carousel-items-content {
+      padding: 1em;
+    }
+  }
+}

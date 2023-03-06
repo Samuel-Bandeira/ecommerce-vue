@@ -1,23 +1,26 @@
 <template>
-  <div class="grid" style="width: 70%">
-    <template v-for="book in books" :key="book.id">
-      <div class="xl:col-3 lg:col-4 md:col-6">
-        <Book :book="book" />
-      </div>
-    </template>
+  <div class="section-container">
+    <p class="section-label">{{ label }}</p>
+    <Carousel :value="books" :numVisible="5" :numScroll="1">
+      <template #item="{ data }">
+        <Book :book="data" />
+      </template>
+    </Carousel>
   </div>
 </template>
 <script>
 // import BookCard from "./DisplayedBooks/BookCard.vue";
+import Carousel from "primevue/carousel";
+
 import Book from "./Book.vue";
 export default {
   name: "books-container",
   components: {
     Book,
+    Carousel
   },
-  props: {
-    books: Array,
-  },
-  methods: {},
+  props: ["books", "label"],
+  methods: {}
 };
 </script>
+<style lang="scss" src="../../scss/home/books.scss"></style>

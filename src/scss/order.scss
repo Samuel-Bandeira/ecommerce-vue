@@ -1,0 +1,32 @@
+.orders-container {
+  width: 60%;
+  margin: 0 auto;
+  .order-container {
+    border: 1px solid gray;
+    margin-bottom: 2em;
+    border-radius: 1em;
+    .header {
+      border-bottom: 1px solid black;
+      display: flex;
+      padding: 1em;
+      .header-left {
+        display: flex;
+        gap: 1em;
+      }
+    }
+    .order-items-container {
+      padding: 1.5em;
+      .order-item {
+        display: flex;
+        margin-bottom: 1em;
+        .book-cover {
+          width: 100px;
+          margin-right: 1em;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

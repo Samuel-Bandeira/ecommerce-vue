@@ -42,31 +42,25 @@
         <i class="pi pi-search" />
       </div>
     </div>
-    <div v-if="user" class="login-container" @click="logUserOut()">
-      <p>Olá {{ user.username }}</p>
+    <div v-if="user" class="login-container">
+      <p>Olá {{ user.name }}</p>
       <p>Logout</p>
     </div>
-    <div v-else class="login-container" @click="redirectToLogin()">
-      <p>Olá, bem vindo</p>
-      <p>faça seu login</p>
-    </div>
-    <div class="orders-container">
+    <div class="orders-container" @click="$router.push('/orders')">
       <p>Devoluções</p>
       <p>e Pedidos</p>
     </div>
     <div class="shopping-cart" @click="redirectToCart()">
       <i class="pi pi-shopping-cart" style="font-size: 2em" />
       <p>Carrinho</p>
-      <Badge v-if="cart" :value="cart.attributes.quantity" />
+      <Badge :value="cartItemsQuantity" />
     </div>
   </div>
-  <Menubar :model="subNavbarItems" class="sub-menu" />
 </template>
 
 <script>
 import AutoComplete from "primevue/autocomplete";
 import Dropdown from "primevue/dropdown";
-import Menubar from "primevue/menubar";
 import Badge from "primevue/badge";
 
 import {
@@ -76,13 +70,11 @@ import {
 } from "../api/bookApi";
 import { getCoverSrcFromBook } from "../utils/index";
 import { logout } from "../api/authApi";
-import { getUser, getUserCart } from "@/api/user";
-// import { getSubNavbarItems } from "../utils/index";
+import { getUser } from "@/api/user";
 
 export default {
   name: "navbar-component",
   components: {
-    Menubar,
     AutoComplete,
     Dropdown,
     Badge
@@ -90,12 +82,16 @@ export default {
   async created() {
     this.books = await getBooks();
     this.categories = await getBooksCategories();
-
-    if (this.$store.state.authStore.user) {
-      const userId = this.$store.state.authStore.user.id;
-      this.user = await getUser({ userId });
-      this.cart = await getUserCart({ userId });
-      console.log(this.cart);
+  },
+  computed: {
+    user() {
+      return this.$store.state.authStore.user;
+    },
+    cart() {
+      return this.$store.state.cartStore.cart;
+    },
+    cartItemsQuantity() {
+      return this.$store.getters["cartStore/itemsQuantity"];
     }
   },
   watch: {
@@ -107,18 +103,10 @@ export default {
   data() {
     return {
       books: [],
-      cart: null,
-      user: null,
       selectedBook: null,
       filteredBooks: null,
       selectedCategory: null,
-      categories: null,
-      subNavbarItems: [
-        {
-          label: "",
-          url: ""
-        }
-      ]
+      categories: null
     };
   },
   methods: {

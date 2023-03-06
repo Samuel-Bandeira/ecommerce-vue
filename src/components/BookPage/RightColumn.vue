@@ -2,7 +2,7 @@
   <div class="product-payment-action">
     <div class="price-info">
       <p>Comprar</p>
-      <h2>R$ {{ book.attributes.price }}</h2>
+      <h2>R$ {{ book.price }}</h2>
     </div>
     <div>
       <h2>Em estoque</h2>
@@ -43,10 +43,8 @@ export default {
   },
   methods: {
     addToCart() {
-      //if logged add to db cart <-- how to post a many to many relationship strapi <-- ans: by id
-      // addProductToCart({})
-      //if not logged add to vuex storage
       console.log("book", this.book);
+
       this.$store.commit("cartStore/increment", {
         book: this.book,
         quantity: Number(this.selectedQuantity.value)

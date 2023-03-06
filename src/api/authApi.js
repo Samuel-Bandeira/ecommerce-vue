@@ -10,11 +10,11 @@ export const login = async ({ credentials }) => {
     setAuthorizationHeader(jwt);
 
     localStorage.setItem("jwtToken", jwt);
-    console.log("jwt", jwt);
     localStorage.setItem("user", JSON.stringify(user));
 
     store.commit("authStore/setToken", { jwt });
     store.commit("authStore/setUser", { user });
+    await store.dispatch("cartStore/getAndSetUserCart", { userId: user.id });
 
     successOnLogin = true;
   } catch (e) {
@@ -24,9 +24,10 @@ export const login = async ({ credentials }) => {
 };
 
 export const logout = () => {
+  console.log("in logout");
   localStorage.removeItem("jwtToken");
   localStorage.removeItem("user");
-  store.commit("authStore/clearUserAndToken");
+  store.commit("authStore/userLoggedOut");
   store.commit("cartStore/clearCart");
   unSetAuthorizationHeader();
 };

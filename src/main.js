@@ -18,46 +18,50 @@ import ListBooks from "./pages/BooksDataTable.vue";
 import DataTableChallenge from "./pages/DataTableChallenge.vue";
 import InfinityScrollDataTable from "./pages/InfinityScrollDataTable.vue";
 import VueObserveVisibility from "vue-observe-visibility";
-
+import Orders from "./pages/Orders.vue";
 const routes = [
   {
     path: "/",
     name: "home",
-    component: <Home />,
+    component: <Home />
   },
   {
     path: "/product/:id",
-    component: <Product />,
+    component: <Product />
   },
   {
     path: "/cart",
-    component: <Cart />,
+    component: <Cart />
   },
   {
     path: "/cart/added",
-    component: <AddedToCart />,
+    component: <AddedToCart />
   },
   {
     path: "/login",
-    component: <Login />,
+    component: <Login />
   },
   {
     path: "/books",
-    component: <ListBooks />,
+    component: <ListBooks />
   },
   {
     path: "/data-table-challenge",
-    component: <DataTableChallenge></DataTableChallenge>,
+    component: <DataTableChallenge></DataTableChallenge>
   },
   {
     path: "/infinity-scroll-data-table",
-    component: <InfinityScrollDataTable />,
+    component: <InfinityScrollDataTable />
   },
+  {
+    path: "/orders",
+    component: <Orders />
+  }
 ];
 
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHistory(),
-  routes,
+  routes
 });
 
 export const app = createApp(App);

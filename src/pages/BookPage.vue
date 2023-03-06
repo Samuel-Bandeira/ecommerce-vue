@@ -1,12 +1,13 @@
 <template>
   <div v-if="book" class="product-page-container">
-    <MidColumn :book="book" />
     <LeftColumn :book="book" />
+    <MidColumn :book="book" />
     <RightColumn :book="book" />
   </div>
 </template>
 <script>
-import { getBook } from "../api/bookApi";
+import { getBook } from "@/data/website/books";
+
 import MidColumn from "../components/BookPage/MidColumn.vue";
 import LeftColumn from "../components/BookPage/LeftColumn.vue";
 import RightColumn from "../components/BookPage/RightColumn.vue";
@@ -16,16 +17,18 @@ export default {
   components: {
     MidColumn,
     LeftColumn,
-    RightColumn,
+    RightColumn
   },
   async created() {
-    this.book = await getBook({ id: this.$route.params.id });
+    const bookId = Number(this.$route.params.id);
+    this.book = getBook({ id: bookId });
+    console.log("on book page, book", this.book);
   },
   data() {
     return {
-      book: null,
+      book: null
     };
-  },
+  }
 };
 </script>
 <style lang="scss" src="../scss/book-page/book-page.scss" />

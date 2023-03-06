@@ -4,3 +4,39 @@ $cover-background: #f8f8f8;
   padding: 2em 2em 0 2em;
   background-color: $cover-background;
 }
+
+.card {
+  padding: 1em;
+  width: 250px;
+  border-radius: 0.6em;
+  box-shadow: 0 3px 12px rgb(0 0 0 / 15%);
+  cursor: pointer;
+  .cover-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.3em;
+    img {
+      width: 70%;
+    }
+  }
+
+  .title {
+    font-size: 1.3em;
+    margin: 0;
+    margin-bottom: 0.5em;
+  }
+
+  .price {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 0.4em;
+  }
+
+  .p-button-warning {
+    width: 100%;
+    span {
+      border: 1px solid green !important;
+    }
+  }
+}

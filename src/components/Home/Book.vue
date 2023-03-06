@@ -1,56 +1,46 @@
 <template>
-  <Card @click="goToPage()">
+  <!-- <Card @click="goToPage()">
     <template #header>
-      <img
-        :src="getCoverSrcFromBook(this.book)"
-        alt="book-cover"
-        class="book-cover"
-      />
+      <img :src="book.cover" alt="book-cover" class="book-cover" />
     </template>
-    <template #title> {{ book.attributes.title }} </template>
     <template #content>
+      {{ book.title }}
       <div>
-        <div v-for="author in authors" :key="author.id">
-          <p>
-            {{ formatFullName(author) }}
-          </p>
+        <div v-for="author in book.authors" :key="author.id">
+          <p>{{ author.name }}</p>
         </div>
       </div>
-      <div v-for="category in categories" :key="category.id">
-        <p>{{ category.attributes.name }}</p>
+      <div v-for="category in book.categories" :key="category.id">
+        <p>{{ category.name }}</p>
       </div>
-      <h2>R$ {{ price }}</h2>
+      <h2>R$ {{ book.price }}</h2>
     </template>
-  </Card>
+  </Card> -->
+  <div class="card" @click="goToBookPage()">
+    <div class="cover-container">
+      <img :src="book.cover" alt="book-cover" />
+    </div>
+    <p class="title">{{ book.title }}</p>
+    <p class="price">R$ {{ book.price }}</p>
+    <Button label="Comprar" class="p-button-warning"></Button>
+  </div>
 </template>
 
 <script>
-import Card from "primevue/card";
-import { getCoverSrcFromBook, formatFullName } from "@/utils";
+// import Card from "primevue/card";
+import Button from "primevue/button";
 export default {
   name: "book-component",
   props: ["book"],
-  computed: {
-    authors() {
-      return this.book.attributes.authors.data;
-    },
-    categories() {
-      return this.book.attributes.categories.data;
-    },
-    price() {
-      return this.book.attributes.price;
-    },
-  },
   methods: {
-    getCoverSrcFromBook,
-    formatFullName,
-    goToPage() {
+    goToBookPage() {
       this.$router.push(`/product/${this.book.id}`);
-    },
+    }
   },
   components: {
-    Card,
-  },
+    Button
+    // Card
+  }
 };
 </script>
 
